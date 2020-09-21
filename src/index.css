@@ -17,6 +17,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
   height: inherit;
+  position: relative;
 }
 
 code {

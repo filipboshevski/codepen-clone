@@ -1,6 +1,6 @@
 const { createSelector } = require("reselect");
 
-const srcDoc = state => state.srcDoc;
+export const srcDoc = state => state.srcDoc;
 
 export const selectHtml = createSelector(
     [srcDoc],

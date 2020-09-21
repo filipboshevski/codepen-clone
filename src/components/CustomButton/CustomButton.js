@@ -13,6 +13,7 @@ export const CustomButton = styled.button`
     border-radius: 5px;
     transform: scaleY(1) translateY(0);
     transition: all .3s;
+    margin-right: ${props => props.isUser ? '0' : '1rem'};
 
     &:hover {
         background-color: ${props => props.hoverBgColor};

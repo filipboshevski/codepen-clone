@@ -42,4 +42,15 @@
     & > button {
         margin-right: 1rem;
     }
+
+    &__greeting {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: white;
+        margin-right: 2rem;
+    }
+}
+
+.signupin {
+    display: flex;
 }

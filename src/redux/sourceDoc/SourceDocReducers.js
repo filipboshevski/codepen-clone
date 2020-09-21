@@ -23,6 +23,13 @@ const sourceDocReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 js: action.payload
             }
+        case sourceDocTypes.LOAD_SRC_DOC:
+            return {
+                ...state,
+                html: action.payload.html,
+                css: action.payload.css,
+                js: action.payload.js
+            }
         default:
             return state;
     };

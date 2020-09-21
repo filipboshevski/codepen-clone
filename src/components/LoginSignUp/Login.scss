@@ -1,0 +1,65 @@
+.login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+
+    &__background {
+        background-color: rgba(black, .6);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        
+        &:hover,
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
+
+    &__panel {
+        position: absolute;
+        border-radius: 6px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        width: 35%;
+        height: 70%;
+        padding: 5rem;
+        overflow: hidden;
+
+        @media screen and (max-width: 1200px) {
+            width: 40%;
+            padding: 3rem;
+        }
+
+        @media screen and (max-width: 900px) {
+            width: 65%;
+            padding: 3rem;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin-bottom: 4rem;
+    }
+
+    &__btnsection {
+        display: flex;
+    }
+}
+
+.separate {
+    margin-left: 2rem;
+}
