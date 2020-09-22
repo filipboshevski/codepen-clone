@@ -28,4 +28,10 @@ export const CustomButton = styled.button`
         transform: scale(.98) translateY(.15rem);
         background-color: ${props => props.activeBgColor};
     }
+
+    @media screen and (max-width: 850px) {
+        padding: .5rem 1rem;
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
 `;

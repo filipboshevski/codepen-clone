@@ -3,9 +3,16 @@
     background-color: #1e1f26;
     height: 10vh;
 
+    @media screen and (max-width: 850px) {
+        height: 20vh;
+    }
+
     &__logo-container {
         height: 3rem;
         align-self: center;
+        @media screen and (max-width: 850px) {
+            height: 1.5rem;
+        }
     }
 
     &__logo {
@@ -24,6 +31,10 @@
     flex-direction: column;
     align-self: center;
 
+    @media screen and (max-width: 850px) {
+        font-size: 1.1rem;
+    }
+
     &__name {
         margin: 0;
     }
@@ -40,6 +51,10 @@
         background: transparent;
         color: white;
         font-size: 1.5rem;
+
+        @media screen and (max-width: 850px) {
+            font-size: 1.1rem;
+        }
 
         &:focus,
         &:active {
@@ -67,6 +82,9 @@
         margin-right: 3rem;
         font-size: 1.6rem;
         color: rgba(133, 132, 132, 0.795);
+        @media screen and (max-width: 850px) {
+            font-size: 1.2rem;
+        }
     }
 }
 

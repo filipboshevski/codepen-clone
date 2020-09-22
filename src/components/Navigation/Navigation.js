@@ -76,7 +76,7 @@ const Navigation = (props) => {
             </div>
             <div className='options' style={{marginTop: '5px'}}>
                 {
-                    currentUser ? null : <div className='options__reminder'>You must log in to use the Save feature.</div>
+                    !currentUser && window.screen.width > 500 ? <div className='options__reminder'>You must log in to use the Save feature.</div> : null 
                 }
                 {
                     currentUser ? (isSaving ? <div className='options__greeting'>Saving...</div> : <div className='options__greeting'>Hello, {currentUser.displayName}</div>) : null
