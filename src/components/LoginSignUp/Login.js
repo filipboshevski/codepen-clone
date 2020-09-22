@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.config';
+import { auth, createUserProfileDocument, signUpWithGoogle } from '../../firebase/firebase.config';
 import { loadSrcDoc } from '../../redux/sourceDoc/SourceDocActions';
+import { srcDoc } from '../../redux/sourceDoc/SourceDocSelectors';
 import { setCurrentUser } from '../../redux/user/userActions';
 import { selectCurrentUser } from '../../redux/user/userSelectors';
 import { CustomButton } from '../CustomButton/CustomButton';
 import { CustomInput, CustomLabel } from '../CustomInput/CustomInput';
 import './Login.scss';
 
-const Login = ({ setLoginPressed, isLoginPressed, setCurrentUser, loadSrcDoc }) => {
+const Login = ({ srcDoc, setLoginPressed, isLoginPressed, setCurrentUser, loadSrcDoc }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -25,11 +26,18 @@ const Login = ({ setLoginPressed, isLoginPressed, setCurrentUser, loadSrcDoc }) 
                 const currentUser = await snapShot.data();
                 setCurrentUser(currentUser);
                 setLoginPressed(!isLoginPressed);
+                if (srcDoc.html === '' && srcDoc.css === '' && srcDoc.js === '') {
+                    loadSrcDoc(currentUser.srcDoc);
+                };
                 loadSrcDoc(currentUser.srcDoc);
             };
         } catch (error) {
-            console.log(error);
+            alert(error.message);
         }
+    };
+
+    const handleSignInWithGoogle = async () => {
+        await signUpWithGoogle(setCurrentUser, setLoginPressed, loadSrcDoc, isLoginPressed);
     }
 
     return (
@@ -45,7 +53,7 @@ const Login = ({ setLoginPressed, isLoginPressed, setCurrentUser, loadSrcDoc }) 
                     <div className='login__btnsection'>
                         <CustomButton color='black' bgColor='#47cf73' hoverBgColor='#349756' activeBgColor='#297A44' type='submit'>Log in</CustomButton>
                         <div className='separate'></div>
-                        <CustomButton type='button' color='white' bgColor='#1a73e8' hoverBgColor='#0F5ABA' activeBgColor='#104A95' onClick={() => console.log('hi')}>Log in with Google</CustomButton>
+                        <CustomButton type='button' color='white' bgColor='#1a73e8' hoverBgColor='#0F5ABA' activeBgColor='#104A95' onClick={handleSignInWithGoogle}>Log in with Google</CustomButton>
                     </div>
                 </form>
             </div>
@@ -54,7 +62,8 @@ const Login = ({ setLoginPressed, isLoginPressed, setCurrentUser, loadSrcDoc }) 
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    srcDoc
 });
 
 const mapDispatchToProps = dispatch => ({

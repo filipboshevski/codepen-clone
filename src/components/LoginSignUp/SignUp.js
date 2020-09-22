@@ -45,8 +45,6 @@ const SignUp = ({ setSignUpPressed, isSignUpPressed, setCurrentUser }) => {
                     <CustomInput type='password' className='signup__input-password' name='password' placeholder='Password' value={password} onChange={event => setPassword(event.target.value)} style={{marginBottom: "40px"}}></CustomInput>
                     <div className='signup__btnsection'>
                         <CustomButton color='black' bgColor='#47cf73' hoverBgColor='#349756' activeBgColor='#297A44' type='submit'>Sign Up</CustomButton>
-                        <div className='separate'></div>
-                        <CustomButton type='button' color='white' bgColor='#1a73e8' hoverBgColor='#0F5ABA' activeBgColor='#104A95' onClick={() => console.log('hi')}>Sign Up with Google</CustomButton>
                     </div>
                 </form>
             </div>

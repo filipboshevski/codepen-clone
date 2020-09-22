@@ -21,6 +21,8 @@ export const firestore = firebase.firestore();
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({prompt: 'select_account'});
 
+export const signInWithGoogle = async () => await auth.signInWithPopup(googleProvider);
+
 export const createUserProfileDocument = async (userAuth, displayName, additionalData) => {
     if (!userAuth) return;
     
@@ -35,6 +37,12 @@ export const createUserProfileDocument = async (userAuth, displayName, additiona
                 createdAt,
                 displayName,
                 id: uid,
+                srcDoc: {
+                    html: '',
+                    css: '',
+                    js: ''
+                },
+                projectName: 'Untitled',
                 email,
                 ...additionalData
             });
@@ -43,4 +51,26 @@ export const createUserProfileDocument = async (userAuth, displayName, additiona
         }
     }
     return userRef;
+};
+
+export const signUpWithGoogle = async (setCurrentUser, setFuncPressed, loadSrcDoc, isVarPressed) => {
+    const userAuth = await signInWithGoogle();
+    const { user } = userAuth;
+        if (userAuth) {
+            const userRef = await createUserProfileDocument(user, user.displayName);
+            const snapShot = await userRef.get();
+            const currentUser = await snapShot.data();
+            setCurrentUser(currentUser);
+            setFuncPressed(!isVarPressed);
+            loadSrcDoc(currentUser.srcDoc);
+        };
+};
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged(authUser => {
+            unsubscribe();
+            resolve(authUser);
+        }, reject);
+    });
 };

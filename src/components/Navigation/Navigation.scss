@@ -33,6 +33,19 @@
         fill: white;
         cursor: pointer;
     }
+
+    &__change-name {
+        outline: none;
+        border: none;
+        background: transparent;
+        color: white;
+        font-size: 1.5rem;
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
 }
 
 .options {
@@ -48,6 +61,12 @@
         font-weight: 600;
         color: white;
         margin-right: 2rem;
+    }
+
+    &__reminder {
+        margin-right: 3rem;
+        font-size: 1.6rem;
+        color: rgba(133, 132, 132, 0.795);
     }
 }
 

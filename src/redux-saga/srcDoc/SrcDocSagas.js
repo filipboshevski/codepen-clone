@@ -13,6 +13,7 @@ export function* saveSrcDoc({payload: {srcDoc, currentUser}}) {
         }, { merge: true });
         console.log(response);
         yield put(saveSrcDocSuccess(response));
+        return true;
     };
 }
 
