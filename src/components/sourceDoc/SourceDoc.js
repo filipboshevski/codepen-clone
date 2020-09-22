@@ -13,6 +13,21 @@ const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs, docSrc}) => {
     const [css, setCss] = useState('');
     const [js, setJs] = useState('');
     const [srcDoc, setSrcDoc] = useState('');
+    const [collapsedDivs, setCollapsedDivs] = useState(0);
+
+    useEffect(() => {
+        let reduxTimeout;
+        
+        if (currentUser) {
+            reduxTimeout = setTimeout(() => {
+                updateHtml(html);
+                updateCss(css);
+                updateJs(js);
+            }, 2000);
+        };
+    
+        return () => clearTimeout(reduxTimeout);
+    }, [srcDoc, updateHtml, updateCss, updateJs]);
     
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -36,28 +51,15 @@ const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs, docSrc}) => {
             
         }, 300);
 
-        let reduxTimeout;
-
-        if (currentUser) {
-            reduxTimeout = setTimeout(() => {
-                updateHtml(html);
-                updateCss(css);
-                updateJs(js);
-            }, 4000);
-        }
-
-        return currentUser ? () => {
-            clearTimeout(timeout);
-            clearTimeout(reduxTimeout);
-        } : () => { clearTimeout(timeout) };
+        return () => clearTimeout(timeout);
     });
 
     return (
         <div>
             <TopPaneContainer>
-                <Editor displayName='HTML' mode='xml' value={html} onChange={setHtml}/>
-                <Editor displayName='CSS' mode='css' value={css} onChange={setCss} />
-                <Editor displayName='JS' mode='js' value={js} onChange={setJs} />
+                <Editor displayName='HTML' mode='xml' value={html} onChange={setHtml} collapsedDivs={collapsedDivs} setCollapsedDivs={setCollapsedDivs} />
+                <Editor displayName='CSS' mode='css' value={css} onChange={setCss} collapsedDivs={collapsedDivs} setCollapsedDivs={setCollapsedDivs}/>
+                <Editor displayName='JS' mode='js' value={js} onChange={setJs} collapsedDivs={collapsedDivs} setCollapsedDivs={setCollapsedDivs}/>
             </TopPaneContainer>
             <div className='pane'>
                 <iframe

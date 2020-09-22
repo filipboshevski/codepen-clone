@@ -1,12 +1,29 @@
 import styled from 'styled-components';
 
 export const EditorContainer = styled.div`
-    flex-grow: ${props => props.collapse ? '0' : '1'};
+    flex-grow: 1;
+    max-width: ${props => {
+        switch (props.collapsedDivs) {
+            case 1:
+                return `${window.screen.width / 2}px`;
+            case 2:
+                return `${window.screen.width / 1}px`;
+            case 3:
+                return `${window.screen.width / .5}px`;
+            default:
+                return `${window.screen.width / 3}px`;
+        }
+    }};
     font-size: 1.6rem;
     padding: 1rem;
     flex-basis: 0;
     flex-direction: column;
+    ${props => props.collapse ? `
+        display: block;
+        max-width: 12rem;
+    ` : ``};
     display: flex;
+    overflow: hidden;
 `;
 
 export const EditorTopBar = styled.div`

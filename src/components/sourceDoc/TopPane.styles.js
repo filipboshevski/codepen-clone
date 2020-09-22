@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TopPaneContainer = styled.div`
     width: 100%;
-    height: 45vh;
+    height: 40vh;
     display: flex;
     position: relative;
     background-color: #1d1e22;

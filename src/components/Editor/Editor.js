@@ -10,7 +10,7 @@ import './Editor.styles.scss';
 import { EditorContainer, EditorTopBar, EditorTitle } from './Editor.styles';
 
 const Editor = (props) => {
-    const { displayName, mode, value, onChange } = props;
+    const { displayName, mode, value, onChange, setCollapsedDivs, collapsedDivs } = props;
 
     const handleChange = (editor, data, value) => {
         onChange(value);
@@ -19,14 +19,18 @@ const Editor = (props) => {
     const [collapse, setCollapse] = useState(false);
 
     return (
-        <EditorContainer collapse={collapse}>
+        <EditorContainer collapse={collapse} collapsedDivs={collapsedDivs}>
             <EditorTopBar>
                 <EditorTitle>{displayName}</EditorTitle>
-                <button className='toggle' type='button' onClick={() => setCollapse(!collapse)}>
+                <button className='toggle' type='button' onClick={() => {
+                    setCollapse(!collapse);
+                    if (!collapse) setCollapsedDivs(collapsedDivs + 1);
+                    else if (collapse && collapsedDivs > 0) setCollapsedDivs(collapsedDivs - 1);
+                }}>
                     <img alt='arrow' src='./arrow-down-sign-to-navigate.png' />
                 </button>
             </EditorTopBar>
-            <ControlledEditor 
+            <ControlledEditor
               onBeforeChange={handleChange}
               value={value}
               className="code-mirror-wrapper"
@@ -35,7 +39,7 @@ const Editor = (props) => {
                 lint: true,
                 mode,
                 lineNumbers: true,
-                theme: 'material'
+                theme: 'material',
               }}
             />
         </EditorContainer>
