@@ -41,7 +41,7 @@ const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs}) => {
         };
     
         return () => clearTimeout(reduxTimeout);
-    }, [srcDoc, updateHtml, updateCss, updateJs]);
+    }, [currentUser, html, css, js, updateHtml, updateCss, updateJs]);
     
     
     useEffect(() => {
@@ -57,7 +57,7 @@ const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs}) => {
         }, 400);
 
         return () => clearTimeout(timeout);
-    });
+    }, [html, css, js]);
 
     return (
         <div className='srcDoc'>

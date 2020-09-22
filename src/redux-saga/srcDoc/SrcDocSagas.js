@@ -11,7 +11,6 @@ export function* saveSrcDoc({payload: {srcDoc, currentUser}}) {
             ...currentUser,
             srcDoc
         }, { merge: true });
-        console.log(response);
         yield put(saveSrcDocSuccess(response));
         return true;
     };
