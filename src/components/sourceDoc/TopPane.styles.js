@@ -10,7 +10,8 @@ export const TopPaneContainer = styled.div`
     justify-content: space-between;
 
     @media screen and (max-width: 500px) {
-        height: 60vh;
+        height: 100vh;
+        flex-direction: column;
     }
 `;
 

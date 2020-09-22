@@ -4,4 +4,7 @@
 
 .srcDoc {
     height: 90vh;
+    @media screen and (max-width: 500px) {
+        height: 100vh;
+    }
 }
