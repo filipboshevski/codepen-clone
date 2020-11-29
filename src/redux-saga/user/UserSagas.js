@@ -14,10 +14,11 @@ export function* isUserPersisted() {
             const user = yield snapShot.data();
             const srcDoc = user.srcDoc;
             yield put(signInSuccess(user));
-            if (srcDoc.html === "") return;
-            yield put(updateHtml(srcDoc.html));
-            yield put(updateCss(srcDoc.css));
-            yield put(updateJs(srcDoc.js));
+            if (srcDoc.html !== "") {
+                yield put(updateHtml(srcDoc.html));
+                yield put(updateCss(srcDoc.css));
+                yield put(updateJs(srcDoc.js));
+            };
             yield put(toggleIsLoading());
             return true;
         };
