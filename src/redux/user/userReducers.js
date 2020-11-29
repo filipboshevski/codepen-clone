@@ -2,7 +2,8 @@ import userActionTypes from './userTypes';
 
 const INITIAL_STATE = {
     currentUser: null,
-    error: null
+    error: null,
+    isLoggedIn: false
 };
 
 const userReducers = (state = INITIAL_STATE, action) => {
@@ -11,18 +12,21 @@ const userReducers = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 currentUser: action.payload,
-                error: null
+                error: null,
+                isLoggedIn: true
             }
         case userActionTypes.SIGN_IN_SUCCESS:
             return {
                 ...state,
                 currentUser: action.payload,
-                error: null
+                error: null,
+                isLoggedIn: true
             }
         case userActionTypes.SIGN_IN_FAILURE:
             return {
                 ...state,
-                error: action.payload
+                error: action.payload,
+                isLoggedIn: false
             }
         case userActionTypes.UPDATE_PROJECT_NAME:
             return {
@@ -31,6 +35,11 @@ const userReducers = (state = INITIAL_STATE, action) => {
                     ...state.currentUser,
                     projectName: action.payload
                 }
+            }
+        case userActionTypes.TOGGLE_IS_LOGGED_IN:
+            return {
+                ...state,
+                isLoggedIn: !state.isLoggedIn
             }
         default:
             return state;

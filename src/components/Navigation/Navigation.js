@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { auth } from '../../firebase/firebase.config';
-import { saveSrcDocStart, updateCss, updateHtml, updateJs } from '../../redux/sourceDoc/SourceDocActions';
+import { saveSrcDocStart } from '../../redux/sourceDoc/SourceDocActions';
 import { srcDoc } from '../../redux/sourceDoc/SourceDocSelectors';
-import { setCurrentUser, updateProjectName } from '../../redux/user/userActions';
+import { setCurrentUser, toggleIsLoggedIn, updateProjectName } from '../../redux/user/userActions';
 import { selectCurrentUser, selectProjectName } from '../../redux/user/userSelectors';
 import { CustomButton } from '../CustomButton/CustomButton';
 import './Navigation.scss';
@@ -13,15 +13,12 @@ const Navigation = (props) => {
     const { updateProjectName, projectName, srcDoc, 
            saveSrcDocStart, isLoginPressed, setLoginPressed, 
            currentUser, setCurrentUser, isSignUpPressed, 
-           setSignUpPressed, updateHtml, updateCss,
-           updateJs } = props;
+           setSignUpPressed, toggleIsLoggedIn } = props;
            
     const signOut = async () => {
         await auth.signOut();
         setCurrentUser(null);
-        updateHtml('');
-        updateCss('');
-        updateJs('');
+        toggleIsLoggedIn();
     };
 
     const [isSaving, setIsSaving] = useState(false);
@@ -118,9 +115,7 @@ const mapDispatchToProps = dispatch => ({
     setCurrentUser: currentUser => dispatch(setCurrentUser(currentUser)),
     saveSrcDocStart: (srcDoc, currentUser) => dispatch(saveSrcDocStart(srcDoc, currentUser)),
     updateProjectName: projectName => dispatch(updateProjectName(projectName)),
-    updateHtml: html => dispatch(updateHtml(html)),
-    updateCss: css => dispatch(updateCss(css)),
-    updateJs: js => dispatch(updateJs(js))
+    toggleIsLoggedIn: () => dispatch(toggleIsLoggedIn())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

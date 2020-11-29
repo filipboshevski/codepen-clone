@@ -11,3 +11,8 @@ export const selectProjectName = createSelector(
     [selectCurrentUser],
     currentUser => currentUser ? (currentUser.projectName) : null
 )
+
+export const selectIsLoggedIn = createSelector(
+    [user],
+    user => user ? user.isLoggedIn : null
+);

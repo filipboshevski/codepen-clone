@@ -25,11 +25,9 @@ const Login = ({ srcDoc, setLoginPressed, isLoginPressed, setCurrentUser, loadSr
                 const snapShot = await userRef.get();
                 const currentUser = await snapShot.data();
                 setCurrentUser(currentUser);
+                console.log(currentUser);
                 setLoginPressed(!isLoginPressed);
-                if (srcDoc.html === '' && srcDoc.css === '' && srcDoc.js === '') {
-                    loadSrcDoc(currentUser.srcDoc);
-                };
-                loadSrcDoc(currentUser.srcDoc);
+                // loadSrcDoc(currentUser.srcDoc);
             };
         } catch (error) {
             alert(error.message);

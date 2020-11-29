@@ -5,6 +5,10 @@ export const setCurrentUser = user => ({
     payload: user
 });
 
+export const toggleIsLoggedIn = () => ({
+    type: userActionTypes.TOGGLE_IS_LOGGED_IN
+});
+
 export const signInSuccess = user => ({
     type: userActionTypes.SIGN_IN_SUCCESS,
     payload: user

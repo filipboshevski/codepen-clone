@@ -5,9 +5,9 @@ import './SourceDoc.scss';
 import { connect } from 'react-redux';
 import { updateCss, updateHtml, updateJs } from '../../redux/sourceDoc/SourceDocActions';
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from '../../redux/user/userSelectors';
+import { selectCurrentUser, selectIsLoggedIn } from '../../redux/user/userSelectors';
 
-const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs}) => {
+const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs, isLoggedIn}) => {
     const [html, setHtml] = useState('');
     const [css, setCss] = useState('');
     const [js, setJs] = useState('');
@@ -15,30 +15,28 @@ const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs}) => {
     const [collapsedDivs, setCollapsedDivs] = useState(0);
 
     useEffect(() => {
-        if (currentUser) {
+        if (currentUser && currentUser.srcDoc.html !== "") {
             const timeout = setTimeout(() => {
                 setHtml(currentUser.srcDoc.html);
                 setCss(currentUser.srcDoc.css);
                 setJs(currentUser.srcDoc.js);
             }, 1000);
             return () => clearTimeout(timeout);
-        } else {
+        } else if (!isLoggedIn) {
             setHtml('');
             setCss('');
             setJs('');
+        } else {
+            return;
         };
-    }, [currentUser, setHtml, setCss, setJs]);
+    }, [currentUser, setHtml, setCss, setJs, isLoggedIn]);
 
     useEffect(() => {
-        let reduxTimeout;
-        
-        if (currentUser) {
-            reduxTimeout = setTimeout(() => {
-                updateHtml(html);
-                updateCss(css);
-                updateJs(js);
-            }, 2500);
-        };
+        let reduxTimeout = setTimeout(() => {
+            updateHtml(html);
+            updateCss(css);
+            updateJs(js);
+        }, 2500);
     
         return () => clearTimeout(reduxTimeout);
     }, [currentUser, html, css, js, updateHtml, updateCss, updateJs]);
@@ -81,7 +79,8 @@ const SourceDoc = ({currentUser, updateHtml, updateCss, updateJs}) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    isLoggedIn: selectIsLoggedIn
 })
 
 const mapDispatchToProps = dispatch => ({
