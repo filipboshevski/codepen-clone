@@ -13,8 +13,8 @@ export function* isUserPersisted() {
             const snapShot = yield firestore.doc(`users/${authUser.uid}`).get();
             const user = yield snapShot.data();
             const srcDoc = user.srcDoc;
-            if (srcDoc.html === "") return;
             yield put(signInSuccess(user));
+            if (srcDoc.html === "") return;
             yield put(updateHtml(srcDoc.html));
             yield put(updateCss(srcDoc.css));
             yield put(updateJs(srcDoc.js));
